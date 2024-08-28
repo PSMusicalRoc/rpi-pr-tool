@@ -1,6 +1,9 @@
 #include "globals.hpp"
 #include "sqlite/tabledef.hpp"
 
+#include <imgui.h>
+#include <imgui_impl_sdl2.h>
+#include <imgui_impl_sdlrenderer2.h>
 #include <iostream>
 
 sqlite3* db_handle = NULL;
@@ -46,6 +49,18 @@ bool initialize_application()
         return false;
     }
 
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    
+    // disable logs and ini
+    io.LogFilename = NULL;
+    io.IniFilename = NULL;
+    io.Fonts->AddFontFromFileTTF("res/fonts/FOT-RodinBokutohPro-UB.otf", 18);
+
+    ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
+    ImGui_ImplSDLRenderer2_Init(renderer);
+
     return true;
 }
 
@@ -57,7 +72,8 @@ bool finish_application()
     SDL_Quit();
 
     // close sqlite db
-    if (db_handle != NULL)
-        sqlite3_close(db_handle);
+    close_sqlite_db(&db_handle);
+
+    // all done :)
     return true;
 }

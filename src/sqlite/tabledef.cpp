@@ -33,3 +33,12 @@ bool load_sqlite_db(sqlite3** db_ptr, const std::string& filename)
 
     return true;
 }
+
+void close_sqlite_db(sqlite3** db_ptr)
+{
+    if (*db_ptr != NULL)
+    {
+        sqlite3_close(*db_ptr);
+        *db_ptr = NULL;
+    }
+}

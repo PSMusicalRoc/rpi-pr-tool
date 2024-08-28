@@ -3,7 +3,7 @@
 #include <string>
 
 #include <sqlite3.h>
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 // GLOBALS
 
