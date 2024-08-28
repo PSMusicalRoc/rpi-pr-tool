@@ -1,0 +1,14 @@
+# vscode files
+.vscode/
+
+# build files
+build/
+obj/
+
+# Makefiles
+Makefile
+*.make
+
+# databases
+*.pr
+*.sqlite
