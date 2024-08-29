@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "Leenoos",
+            "intelliSenseMode": "linux-gcc-x64",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "includePath": [
+                "include",
+                "vendor/imgui",
+                "vendor/imgui/backends",
+                "vendor/imgui/misc/cpp",
+                "vendor/imfile_dialog",
+                "/usr/include/SDL2"
+            ]
+        }
+    ],
+    "version": 4
+}
