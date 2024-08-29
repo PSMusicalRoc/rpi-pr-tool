@@ -23,11 +23,6 @@ int main(int argc, char** argv)
     SDL_Event event;
     bool application_running = true;
 
-    IGFD::FileDialogConfig config;
-    config.path = ".";
-    config.flags = IGFD_FileStyleFlags_::IGFD_FileStyleByTypeFile;
-    ImGuiFileDialog::Instance()->OpenDialog("ChooseFileDialog", "Choose File", ".cpp,.h,.hpp", config);
-
     while (application_running)
     {
         // get events
@@ -62,15 +57,6 @@ int main(int argc, char** argv)
                 ImGui::EndMenu();
             }
             ImGui::EndMainMenuBar();
-        }
-
-        // ImGui::ShowDemoWindow();
-        ImVec2 next_win_pos = ImGui::GetMainViewport()->WorkPos;
-        ImGui::SetNextWindowPos(next_win_pos);
-        ImGui::SetNextWindowSize(ImGui::GetMainViewport()->WorkSize);
-        if (ImGuiFileDialog::Instance()->Display("ChooseFileDialog"))
-        {
-            ImGuiFileDialog::Instance()->Close();
         }
 
         ImGui::Render();
