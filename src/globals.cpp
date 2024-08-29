@@ -23,7 +23,6 @@ bool initialize_application()
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
         std::cerr << "SDL Error: Could not initialize SDL." << std::endl;
-        sqlite3_close(db_handle);
         return false;
     }
 
@@ -34,7 +33,6 @@ bool initialize_application()
     {
         std::cerr << "SDL Window failed to create: " << SDL_GetError() << std::endl;
         SDL_Quit();
-        sqlite3_close(db_handle);
         return false;
     }
 
@@ -45,7 +43,6 @@ bool initialize_application()
         std::cerr << "SDL Renderer failed to create: " << SDL_GetError() << std::endl;
         SDL_DestroyWindow(window);
         SDL_Quit();
-        sqlite3_close(db_handle);
         return false;
     }
 
