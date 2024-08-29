@@ -25,11 +25,13 @@ project "rpipr"
 
 files {
     imgui_params.files,
+    "vendor/imfile_dialog/ImGuiFileDialog.cpp",
     "src/**.cpp"
 }
 
 includedirs {
     "include",
+    "vendor/imfile_dialog",
     imgui_params.includes
 }
 
