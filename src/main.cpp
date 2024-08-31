@@ -13,7 +13,7 @@
 #include "globals.hpp"
 #include "sqlite/tabledef.hpp"
 
-#include "ui/tabbing/TestNonClosableTab.hpp"
+#include "ui/tabbing/PlayerViewTab.hpp"
 
 int main(int argc, char** argv)
 {
@@ -25,9 +25,9 @@ int main(int argc, char** argv)
     SDL_Event event;
     bool application_running = true;
 
-    // TestNonClosableTab tabs[] = {
-    //     TestNonClosableTab("test"),
-    //     TestNonClosableTab("test2")
+    // PlayerViewTab tabs[] = {
+    //     PlayerViewTab("test"),
+    //     PlayerViewTab("test2")
     // };
 
     while (application_running)
@@ -60,6 +60,7 @@ int main(int argc, char** argv)
             {
                 if (ImGui::MenuItem("Load PR File"))
                 {
+                    load_sqlite_db(&db_handle, "test.sqlite");
                 }
                 ImGui::EndMenu();
             }
