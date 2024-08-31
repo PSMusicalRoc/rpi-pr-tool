@@ -13,6 +13,8 @@
 #include "globals.hpp"
 #include "sqlite/tabledef.hpp"
 
+#include "ui/tabbing/TestNonClosableTab.hpp"
+
 int main(int argc, char** argv)
 {
     if (!initialize_application())
@@ -22,6 +24,11 @@ int main(int argc, char** argv)
 
     SDL_Event event;
     bool application_running = true;
+
+    // TestNonClosableTab tabs[] = {
+    //     TestNonClosableTab("test"),
+    //     TestNonClosableTab("test2")
+    // };
 
     while (application_running)
     {
@@ -57,6 +64,27 @@ int main(int argc, char** argv)
                 ImGui::EndMenu();
             }
             ImGui::EndMainMenuBar();
+        }
+
+        ImVec2 next_window_size = ImGui::GetMainViewport()->WorkSize;
+        ImVec2 next_window_pos = ImGui::GetMainViewport()->WorkPos;
+        int next_window_flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoResize |
+            ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBringToFrontOnFocus;
+        
+        ImGui::SetNextWindowPos(next_window_pos);
+        ImGui::SetNextWindowSize(next_window_size);
+        if (ImGui::Begin("MainWindow", NULL, next_window_flags))
+        {
+            // // Commented out tabbing code
+            // if (ImGui::BeginTabBar("mainwindow_tabbar"))
+            // {
+            //     for (int i = 0; i < 2; i++)
+            //     {
+            //         tabs[i].render();
+            //     }
+            //     ImGui::EndTabBar();
+            // }
+            ImGui::End();
         }
 
 #ifdef ROC_DEBUG
