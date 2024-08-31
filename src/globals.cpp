@@ -57,7 +57,7 @@ bool initialize_application()
     // disable logs and ini
     io.LogFilename = NULL;
     io.IniFilename = NULL;
-    io.Fonts->AddFontFromFileTTF("res/fonts/FOT-RodinBokutohPro-UB.otf", 18);
+    io.Fonts->AddFontFromFileTTF("res/fonts/OpenSans.ttf", 30);
 
     ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer2_Init(renderer);
