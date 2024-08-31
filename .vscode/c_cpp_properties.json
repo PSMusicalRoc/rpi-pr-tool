@@ -12,6 +12,9 @@
                 "vendor/imgui/misc/cpp",
                 "vendor/imfile_dialog",
                 "/usr/include/SDL2"
+            ],
+            "defines": [
+                "ROC_DEBUG"
             ]
         }
     ],

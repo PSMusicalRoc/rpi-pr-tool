@@ -26,7 +26,11 @@ bool initialize_application()
         return false;
     }
 
-    int window_flags = SDL_WINDOW_ALLOW_HIGHDPI;
+    // this currently doesn't really do what i want,
+    // i figure that DPI shenangians will come up
+    // eventually. For now, none of my concern.
+    // int window_flags = SDL_WINDOW_ALLOW_HIGHDPI;
+    int window_flags = 0;
     window = SDL_CreateWindow("Power Rankings Manager", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         current_windowwidth_px, current_windowheight_px, window_flags);
     if (window == NULL)

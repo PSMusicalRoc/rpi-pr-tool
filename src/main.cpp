@@ -59,6 +59,10 @@ int main(int argc, char** argv)
             ImGui::EndMainMenuBar();
         }
 
+#ifdef ROC_DEBUG
+        ImGui::ShowDemoWindow();
+#endif
+
         ImGui::Render();
         ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData(), renderer);
         SDL_RenderPresent(renderer);
