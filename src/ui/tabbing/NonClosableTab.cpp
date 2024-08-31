@@ -9,7 +9,6 @@ void NonClosableTab::render()
 {
     if (ImGui::BeginTabItem(generateImGUITag().c_str(), NULL))
     {
-        ImGui::Text("Wow! This is a tab! %d", _unique_id);
         displayContents();
         ImGui::EndTabItem();
     }
