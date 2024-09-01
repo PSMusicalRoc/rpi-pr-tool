@@ -1,12 +1,11 @@
 #include "globals.hpp"
 #include "sqlite/tabledef.hpp"
+#include "sqlite/PRDatabase.hpp"
 
 #include <imgui.h>
 #include <imgui_impl_sdl2.h>
 #include <imgui_impl_sdlrenderer2.h>
 #include <iostream>
-
-sqlite3* db_handle = NULL;
 
 const int BEGIN_WINDOW_WIDTH = 1280;
 const int BEGIN_WINDOW_HEIGHT = 720;
@@ -73,7 +72,7 @@ bool finish_application()
     SDL_Quit();
 
     // close sqlite db
-    close_sqlite_db(&db_handle);
+    PRDatabase::destroy();
 
     // all done :)
     return true;

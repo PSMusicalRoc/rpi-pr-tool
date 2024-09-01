@@ -12,6 +12,7 @@
 
 #include "globals.hpp"
 #include "sqlite/tabledef.hpp"
+#include "sqlite/PRDatabase.hpp"
 
 #include "ui/tabbing/PlayerViewTab.hpp"
 
@@ -25,10 +26,10 @@ int main(int argc, char** argv)
     SDL_Event event;
     bool application_running = true;
 
-    // PlayerViewTab tabs[] = {
-    //     PlayerViewTab("test"),
-    //     PlayerViewTab("test2")
-    // };
+    PlayerViewTab tabs[] = {
+        PlayerViewTab("test"),
+        PlayerViewTab("test2")
+    };
 
     while (application_running)
     {
@@ -60,7 +61,12 @@ int main(int argc, char** argv)
             {
                 if (ImGui::MenuItem("Load PR File"))
                 {
-                    load_sqlite_db(&db_handle, "test.sqlite");
+                    // load_sqlite_db(&db_handle, "test.sqlite");
+                    PRDatabase::get()->loadDB("test.sqlite");
+                }
+                if (ImGui::MenuItem("Close PR File", NULL, false, PRDatabase::get()->isDBLoaded()))
+                {
+                    PRDatabase::get()->closeDB();
                 }
                 ImGui::EndMenu();
             }
@@ -76,15 +82,15 @@ int main(int argc, char** argv)
         ImGui::SetNextWindowSize(next_window_size);
         if (ImGui::Begin("MainWindow", NULL, next_window_flags))
         {
-            // // Commented out tabbing code
-            // if (ImGui::BeginTabBar("mainwindow_tabbar"))
-            // {
-            //     for (int i = 0; i < 2; i++)
-            //     {
-            //         tabs[i].render();
-            //     }
-            //     ImGui::EndTabBar();
-            // }
+            // Commented out tabbing code
+            if (ImGui::BeginTabBar("mainwindow_tabbar"))
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    tabs[i].render();
+                }
+                ImGui::EndTabBar();
+            }
             ImGui::End();
         }
 

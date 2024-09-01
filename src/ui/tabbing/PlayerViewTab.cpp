@@ -2,7 +2,7 @@
 
 #include "ui/BaseFunctions.hpp"
 #include "sqlite/tabledef.hpp"
-#include "globals.hpp"
+#include "sqlite/PRDatabase.hpp"
 #include <imgui.h>
 #include <iostream>
 
@@ -11,17 +11,17 @@ PlayerViewTab::PlayerViewTab(const std::string& tab_name)
 
 void PlayerViewTab::displayContents()
 {
-    if (db_handle != NULL)
+    if (PRDatabase::get()->isDBLoaded())
     {
         sqlite3_stmt* statement;
         std::string message = "SELECT * FROM " +
             std::string(PLAYER_TABLE_NAME) + " ORDER BY " +
             std::string(PLAYER_TABLE_ROW_PNAME) + " COLLATE NOCASE ASC";
-        int ret = sqlite3_prepare_v2(db_handle, message.c_str(), message.size(), &statement, NULL);
+        int ret = sqlite3_prepare_v2(PRDatabase::get()->_sql_database, message.c_str(), message.size(), &statement, NULL);
         if ( ret != SQLITE_OK)
         {
-            std::cerr << "sqlite3 error: " << sqlite3_errmsg(db_handle) << std::endl;
-            sqlite3_close(db_handle);
+            std::cerr << "sqlite3 error: " << sqlite3_errmsg(PRDatabase::get()->_sql_database) << std::endl;
+            sqlite3_close(PRDatabase::get()->_sql_database);
             return;
         }
 
@@ -33,7 +33,7 @@ void PlayerViewTab::displayContents()
 
         if (ret != SQLITE_DONE)
         {
-            std::cerr << "sqlite3_step error: " << sqlite3_errmsg(db_handle) << std::endl;
+            std::cerr << "sqlite3_step error: " << sqlite3_errmsg(PRDatabase::get()->_sql_database) << std::endl;
         }
         sqlite3_finalize(statement);
     } else {

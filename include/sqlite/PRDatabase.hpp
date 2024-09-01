@@ -1,0 +1,44 @@
+/**
+ * @file PRDatabase.hpp
+ * 
+ * This file defines a C++ wrapper class
+ * (a singleton, actually!) for the SQLite3
+ * database struct. It contains caching
+ * logic, as well as specialized functionality
+ * for creating RPIPR conforming databases.
+ * 
+ * @author Tim Bishop
+ */
+
+#pragma once
+
+#include <string>
+#include <vector>
+
+#include <sqlite3.h>
+
+class PRDatabase
+{
+protected:
+    static PRDatabase* _db_reference;
+
+    PRDatabase();
+
+private:
+    bool _has_changed = true;
+public:
+    sqlite3* _sql_database;
+private:
+    void cacheIfChanged();
+
+public:
+    static PRDatabase* get();
+    static void destroy();
+
+    bool loadDB(const std::string& filename);
+    bool closeDB();
+    bool isDBLoaded() const { return this->_sql_database != NULL; }
+    bool hasChanged() const { return this->_has_changed; }
+
+    // getters for players, tournaments, etc
+};

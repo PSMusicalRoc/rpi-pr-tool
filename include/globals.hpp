@@ -7,8 +7,6 @@
 
 // GLOBALS
 
-extern sqlite3* db_handle;
-
 extern const int BEGIN_WINDOW_WIDTH;
 extern const int BEGIN_WINDOW_HEIGHT;
 extern int current_windowwidth_px;
