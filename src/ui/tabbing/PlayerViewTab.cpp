@@ -48,6 +48,7 @@ void PlayerViewTab::displayContents()
                 ImGui::Text("Are you sure you want to delete player %s?", row.getPlayerName().c_str());
                 if (ImGui::Button("Yes"))
                 {
+                    PRDatabase::get()->removePlayerFromDB(row.getPlayerName());
                     ImGui::CloseCurrentPopup();
                 }
                 ImGui::SameLine();
@@ -65,6 +66,7 @@ void PlayerViewTab::displayContents()
             ImGui::InputText("Player Name", &_player_add_txt);
             if (ImGui::Button("Add Player"))
             {
+                PRDatabase::get()->addPlayerToDB(_player_add_txt);
                 ImGui::CloseCurrentPopup();
             }
             ImGui::SameLine();

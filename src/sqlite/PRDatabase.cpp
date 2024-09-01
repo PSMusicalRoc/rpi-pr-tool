@@ -130,10 +130,16 @@ const std::vector<PlayerTableRow>& PRDatabase::getPlayerTable()
 
 bool PRDatabase::addPlayerToDB(const std::string& player_name)
 {
-    return true;
+    bool added = insertPlayerIntoPlayerTable(_sql_database, player_name);
+    if (added)
+        _has_changed = true;
+    return added;
 }
 
 bool PRDatabase::removePlayerFromDB(const std::string& player_name)
 {
-    return true;
+    bool removed = removePlayerFromPlayerTable(_sql_database, player_name);
+    if (removed)
+        _has_changed = true;
+    return removed;
 }

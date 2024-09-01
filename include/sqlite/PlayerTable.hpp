@@ -74,6 +74,8 @@ bool addPlayerTableToDB(sqlite3* db_handle);
  */
 bool insertPlayerIntoPlayerTable(sqlite3* db_handle, const std::string& playername);
 
+bool removePlayerFromPlayerTable(sqlite3* db_handle, const std::string& playername);
+
 
 /**
  * Structure used for caching a Player Table Row
