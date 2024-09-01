@@ -52,3 +52,14 @@ linkoptions {
 filter "configurations:Debug"
     symbols "On"
     defines { "ROC_DEBUG" }
+
+
+filter ""
+
+project "test"
+    kind "Makefile"
+    dependson "rpipr"
+
+    buildcommands {
+        "./build/%{cfg.buildcfg}/rpipr"
+    }

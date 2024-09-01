@@ -19,7 +19,7 @@ extern SDL_Renderer* renderer;
 // ImGUI Fonts
 extern ImFont* default_font;
 extern ImFont* title_font;
-extern ImFont* icon_font;
+// extern ImFont* icon_font;
 
 
 // INITIALIZATION FUNCTIONS

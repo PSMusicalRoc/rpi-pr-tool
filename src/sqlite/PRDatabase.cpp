@@ -124,3 +124,16 @@ const std::vector<PlayerTableRow>& PRDatabase::getPlayerTable()
         cacheIfChanged();
     return _player_table_cache;
 }
+
+
+// ===   OPERATIONS   ===
+
+bool PRDatabase::addPlayerToDB(const std::string& player_name)
+{
+    return true;
+}
+
+bool PRDatabase::removePlayerFromDB(const std::string& player_name)
+{
+    return true;
+}

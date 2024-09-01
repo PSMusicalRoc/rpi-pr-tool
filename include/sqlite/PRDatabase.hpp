@@ -46,4 +46,9 @@ public:
 
     // getters for players, tournaments, etc
     const std::vector<PlayerTableRow>& getPlayerTable();
+
+    // DB Operations that can be done by the user
+
+    bool addPlayerToDB(const std::string& player_name);
+    bool removePlayerFromDB(const std::string& player_name);
 };
