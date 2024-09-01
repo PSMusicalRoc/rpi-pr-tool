@@ -16,6 +16,7 @@
 #include <vector>
 
 #include <sqlite3.h>
+#include "PlayerTable.hpp"
 
 class PRDatabase
 {
@@ -26,10 +27,15 @@ protected:
 
 private:
     bool _has_changed = true;
+    std::vector<PlayerTableRow> _player_table_cache;
+
+// Caching methods
+private:
+    void cachePlayerTable();
+    void cacheIfChanged();
+
 public:
     sqlite3* _sql_database;
-private:
-    void cacheIfChanged();
 
 public:
     static PRDatabase* get();
@@ -41,4 +47,5 @@ public:
     bool hasChanged() const { return this->_has_changed; }
 
     // getters for players, tournaments, etc
+    const std::vector<PlayerTableRow>& getPlayerTable();
 };

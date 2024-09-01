@@ -73,3 +73,19 @@ bool addPlayerTableToDB(sqlite3* db_handle);
  * table), `false` if any error occurred.
  */
 bool insertPlayerIntoPlayerTable(sqlite3* db_handle, const std::string& playername);
+
+
+/**
+ * Structure used for caching a Player Table Row
+ * in PRDatabase.
+ */
+class PlayerTableRow
+{
+private:
+    std::string _player_name;
+
+public:
+    PlayerTableRow(const std::string& player_name = "");
+
+    const std::string& getPlayerName() const { return _player_name; }
+};

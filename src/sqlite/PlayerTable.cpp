@@ -99,3 +99,9 @@ bool insertPlayerIntoPlayerTable(sqlite3* db_handle, const std::string& playerna
         return false;
     }
 }
+
+
+// ===   STRUCT METHODS   ===
+
+PlayerTableRow::PlayerTableRow(const std::string& player_name)
+    :_player_name(player_name) {}
