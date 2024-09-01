@@ -27,8 +27,7 @@ int main(int argc, char** argv)
     bool application_running = true;
 
     PlayerViewTab tabs[] = {
-        PlayerViewTab("test"),
-        PlayerViewTab("test2")
+        PlayerViewTab("Players")
     };
 
     while (application_running)
@@ -85,7 +84,7 @@ int main(int argc, char** argv)
             // Commented out tabbing code
             if (ImGui::BeginTabBar("mainwindow_tabbar"))
             {
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 1; i++)
                 {
                     tabs[i].render();
                 }
