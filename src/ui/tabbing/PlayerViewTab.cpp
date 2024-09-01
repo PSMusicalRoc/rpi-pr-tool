@@ -3,6 +3,7 @@
 #include "ui/BaseFunctions.hpp"
 #include "sqlite/tabledef.hpp"
 #include "sqlite/PRDatabase.hpp"
+#include "globals.hpp"
 #include <imgui.h>
 #include <iostream>
 
@@ -18,6 +19,8 @@ void PlayerViewTab::displayContents()
             ImCustom::CenteredText("Player: " + row.getPlayerName(), true, false);
         }
     } else {
+        ImGui::PushFont(title_font);
         ImCustom::CenteredText("No Database is loaded!", true, true);
+        ImGui::PopFont();
     }
 }

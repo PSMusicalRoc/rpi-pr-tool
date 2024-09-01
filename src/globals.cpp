@@ -15,6 +15,9 @@ int current_windowheight_px = BEGIN_WINDOW_HEIGHT;
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
+ImFont* default_font = NULL;
+ImFont* title_font = NULL;
+
 bool initialize_application()
 {
     // initialize sdl2
@@ -56,7 +59,8 @@ bool initialize_application()
     // disable logs and ini
     io.LogFilename = NULL;
     io.IniFilename = NULL;
-    io.Fonts->AddFontFromFileTTF("res/fonts/OpenSans.ttf", 30);
+    default_font = io.Fonts->AddFontFromFileTTF("res/fonts/OpenSans.ttf", 30);
+    title_font = io.Fonts->AddFontFromFileTTF("res/fonts/OpenSans-Bold.ttf", 50);
 
     ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer2_Init(renderer);
@@ -66,6 +70,10 @@ bool initialize_application()
 
 bool finish_application()
 {
+    // destroy ImGUI stuff
+    ImGui_ImplSDLRenderer2_Shutdown();
+    ImGui_ImplSDL2_Shutdown();
+
     // SDL deinitialization
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

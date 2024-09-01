@@ -4,6 +4,7 @@
 
 #include <sqlite3.h>
 #include <SDL.h>
+#include <imgui.h>
 
 // GLOBALS
 
@@ -14,6 +15,10 @@ extern int current_windowheight_px;
 
 extern SDL_Window* window;
 extern SDL_Renderer* renderer;
+
+// ImGUI Fonts
+extern ImFont* default_font;
+extern ImFont* title_font;
 
 
 // INITIALIZATION FUNCTIONS
