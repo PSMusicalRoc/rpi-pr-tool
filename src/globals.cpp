@@ -7,6 +7,8 @@
 #include <imgui_impl_sdlrenderer2.h>
 #include <iostream>
 
+#include "IconsFontAwesome6.h"
+
 const int BEGIN_WINDOW_WIDTH = 1280;
 const int BEGIN_WINDOW_HEIGHT = 720;
 int current_windowwidth_px = BEGIN_WINDOW_WIDTH;
@@ -17,6 +19,7 @@ SDL_Renderer* renderer = NULL;
 
 ImFont* default_font = NULL;
 ImFont* title_font = NULL;
+ImFont* icon_font = NULL;
 
 bool initialize_application()
 {
@@ -61,6 +64,12 @@ bool initialize_application()
     io.IniFilename = NULL;
     default_font = io.Fonts->AddFontFromFileTTF("res/fonts/OpenSans.ttf", 30);
     title_font = io.Fonts->AddFontFromFileTTF("res/fonts/OpenSans-Bold.ttf", 50);
+
+    ImFontConfig cfg;
+    // cfg.MergeMode = true;
+    cfg.GlyphMinAdvanceX = 30.0f;
+    static const ImWchar fawesome_icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
+    icon_font = io.Fonts->AddFontFromFileTTF("res/fonts/fa-solid-900.ttf", 30, &cfg, fawesome_icon_ranges);
 
     ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer2_Init(renderer);

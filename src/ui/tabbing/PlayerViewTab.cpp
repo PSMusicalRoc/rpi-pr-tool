@@ -4,6 +4,7 @@
 #include "sqlite/tabledef.hpp"
 #include "sqlite/PRDatabase.hpp"
 #include "globals.hpp"
+#include "IconsFontAwesome6.h"
 #include <imgui.h>
 #include <iostream>
 
@@ -24,7 +25,13 @@ void PlayerViewTab::displayContents()
         for (const PlayerTableRow& row : PRDatabase::get()->getPlayerTable())
         {
             ImGui::TableNextColumn();
-            ImGui::Button(("Player: " + row.getPlayerName()).c_str(), ImVec2(ImGui::GetContentRegionAvail().x, 40));
+            ImGui::Button(("Player: " + row.getPlayerName()).c_str(), ImVec2(ImGui::GetContentRegionAvail().x-45, 40));
+            ImGui::SameLine();
+            ImGui::PushFont(icon_font);
+            //"\xef\x97\x88"
+            //"\xef\x87\xb8"
+            ImGui::Button(ICON_FA_TRASH, ImVec2(40, 40));
+            ImGui::PopFont();
         }
         ImGui::EndTable();
     } else {
