@@ -28,14 +28,12 @@ protected:
 private:
     bool _has_changed = true;
     std::vector<PlayerTableRow> _player_table_cache;
+    sqlite3* _sql_database;
 
 // Caching methods
 private:
     void cachePlayerTable();
     void cacheIfChanged();
-
-public:
-    sqlite3* _sql_database;
 
 public:
     static PRDatabase* get();
