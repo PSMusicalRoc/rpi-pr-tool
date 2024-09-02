@@ -63,7 +63,7 @@ bool addPlayerTableToDB(sqlite3* db_handle);
  * that the table already be created within the
  * provided database.
  * 
- * @param db_handle The `sqlite3` databasepointer
+ * @param db_handle The `sqlite3` database pointer
  * representing the current database.
  * @param playername The name of the player to be
  * inserted into the table.
@@ -74,6 +74,20 @@ bool addPlayerTableToDB(sqlite3* db_handle);
  */
 bool insertPlayerIntoPlayerTable(sqlite3* db_handle, const std::string& playername);
 
+/**
+ * Removes a player from the player table. Requires
+ * that the table already be created within the
+ * provided database.
+ * 
+ * @param db_handle The `sqlite3` database pointer
+ * representing the current database.
+ * @param playername The name of the player to be
+ * removed from the table.
+ * 
+ * @returns `true` if the player is correctly removed
+ * from the table (or if the player already wasn't
+ * in the table), `false` if any error occurred.
+ */
 bool removePlayerFromPlayerTable(sqlite3* db_handle, const std::string& playername);
 
 
