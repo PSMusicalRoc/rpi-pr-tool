@@ -99,3 +99,60 @@ bool insertPlayerIntoPlayerTable(sqlite3* db_handle, const std::string& playerna
         return false;
     }
 }
+
+bool removePlayerFromPlayerTable(sqlite3* db_handle, const std::string& playername)
+{
+    sqlite3_stmt* statement;
+    std::string check_player_msg = "SELECT EXISTS(SELECT * FROM " +
+        std::string(PLAYER_TABLE_NAME) + " WHERE " +
+        std::string(PLAYER_TABLE_ROW_PNAME) + "='" +
+        playername + "')";
+    std::string msg = "DELETE FROM " + std::string(PLAYER_TABLE_NAME) +
+        " WHERE " + std::string(PLAYER_TABLE_ROW_PNAME) + "='" +
+        playername + "'";
+    int retval;
+
+    // check if name exists
+    retval = sqlite3_prepare_v2(db_handle, check_player_msg.c_str(), check_player_msg.size(), &statement, NULL);
+    if (retval != SQLITE_OK)
+    {
+        std::cerr << "removePlayerFromPlayerTable error: " << sqlite3_errmsg(db_handle) << std::endl;
+        return false;
+    }
+
+    sqlite3_step(statement);
+    int exists = sqlite3_column_int(statement, 0);
+    sqlite3_finalize(statement);
+
+    if (exists == 0)
+    {
+        // player does not exist, return true
+        return true;
+    }
+
+    // delete player
+    retval = sqlite3_prepare_v2(db_handle, msg.c_str(), msg.size(), &statement, NULL);
+    if (retval != SQLITE_OK)
+    {
+        std::cerr << "removePlayerFromPlayerTable error: " << sqlite3_errmsg(db_handle) << std::endl;
+        return false;
+    }
+
+    retval = sqlite3_step(statement);
+    if (retval == SQLITE_DONE)
+    {
+        sqlite3_finalize(statement);
+        return true;
+    }
+    else
+    {
+        sqlite3_finalize(statement);
+        return false;
+    }
+}
+
+
+// ===   STRUCT METHODS   ===
+
+PlayerTableRow::PlayerTableRow(const std::string& player_name)
+    :_player_name(player_name) {}

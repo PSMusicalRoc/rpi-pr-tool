@@ -2,13 +2,29 @@
 
 #include <string>
 
+/**
+ * The base Tab interface, used for iterating
+ * over a user-defined number of tabs.
+ * 
+ * @author Tim Bishop
+ */
 class ITab
 {
 public:
+    /**
+     * Renders the contents of a given tab. The
+     * specific behavior is defined by the individual
+     * subclass.
+     */
     virtual void render() = 0;
 };
 
 
+/**
+ * A subclass of the Tab interface, contains some
+ * concrete implementations for things every tab
+ * should be using (like a unique identifier!)
+ */
 class AbstractTab: public ITab
 {
 private:

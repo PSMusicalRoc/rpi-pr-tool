@@ -1,12 +1,13 @@
 #include "globals.hpp"
 #include "sqlite/tabledef.hpp"
+#include "sqlite/PRDatabase.hpp"
 
 #include <imgui.h>
 #include <imgui_impl_sdl2.h>
 #include <imgui_impl_sdlrenderer2.h>
 #include <iostream>
 
-sqlite3* db_handle = NULL;
+#include "IconsFontAwesome6.h"
 
 const int BEGIN_WINDOW_WIDTH = 1280;
 const int BEGIN_WINDOW_HEIGHT = 720;
@@ -15,6 +16,10 @@ int current_windowheight_px = BEGIN_WINDOW_HEIGHT;
 
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
+
+ImFont* default_font = NULL;
+ImFont* title_font = NULL;
+// ImFont* icon_font = NULL;
 
 bool initialize_application()
 {
@@ -30,7 +35,7 @@ bool initialize_application()
     // i figure that DPI shenangians will come up
     // eventually. For now, none of my concern.
     // int window_flags = SDL_WINDOW_ALLOW_HIGHDPI;
-    int window_flags = 0;
+    int window_flags = SDL_WINDOW_RESIZABLE;
     window = SDL_CreateWindow("Power Rankings Manager", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         current_windowwidth_px, current_windowheight_px, window_flags);
     if (window == NULL)
@@ -57,7 +62,15 @@ bool initialize_application()
     // disable logs and ini
     io.LogFilename = NULL;
     io.IniFilename = NULL;
-    io.Fonts->AddFontFromFileTTF("res/fonts/FOT-RodinBokutohPro-UB.otf", 18);
+    default_font = io.Fonts->AddFontFromFileTTF("res/fonts/OpenSans.ttf", 30);
+
+    ImFontConfig cfg;
+    cfg.MergeMode = true;
+    cfg.GlyphMinAdvanceX = 30.0f;
+    static const ImWchar fawesome_icon_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
+    io.Fonts->AddFontFromFileTTF("res/fonts/fa-solid-900.ttf", 30, &cfg, fawesome_icon_ranges);
+
+    title_font = io.Fonts->AddFontFromFileTTF("res/fonts/OpenSans-Bold.ttf", 50);
 
     ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer2_Init(renderer);
@@ -67,13 +80,17 @@ bool initialize_application()
 
 bool finish_application()
 {
+    // destroy ImGUI stuff
+    ImGui_ImplSDLRenderer2_Shutdown();
+    ImGui_ImplSDL2_Shutdown();
+
     // SDL deinitialization
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 
     // close sqlite db
-    close_sqlite_db(&db_handle);
+    PRDatabase::destroy();
 
     // all done :)
     return true;
