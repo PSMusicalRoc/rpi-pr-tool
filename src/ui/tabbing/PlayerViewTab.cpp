@@ -67,6 +67,7 @@ void PlayerViewTab::displayContents()
             if (ImGui::Button("Add Player"))
             {
                 PRDatabase::get()->addPlayerToDB(_player_add_txt);
+                _player_add_txt.clear();
                 ImGui::CloseCurrentPopup();
             }
             ImGui::SameLine();
