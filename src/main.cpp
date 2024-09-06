@@ -15,6 +15,7 @@
 #include "sqlite/PRDatabase.hpp"
 
 #include "ui/tabbing/PlayerViewTab.hpp"
+#include "ui/windowing/WindowState.hpp"
 
 int main(int argc, char** argv)
 {
@@ -76,21 +77,39 @@ int main(int argc, char** argv)
         ImVec2 next_window_pos = ImGui::GetMainViewport()->WorkPos;
         int next_window_flags = ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoResize |
             ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoBringToFrontOnFocus;
-        
         ImGui::SetNextWindowPos(next_window_pos);
         ImGui::SetNextWindowSize(next_window_size);
-        if (ImGui::Begin("MainWindow", NULL, next_window_flags))
+        
+        if (WindowState::getWindowState() == USER_WINDOW)
         {
-            // Commented out tabbing code
-            if (ImGui::BeginTabBar("mainwindow_tabbar"))
+            if (ImGui::Begin("MainWindow", NULL, next_window_flags))
             {
-                for (int i = 0; i < 1; i++)
+                // Commented out tabbing code
+                if (ImGui::BeginTabBar("mainwindow_tabbar"))
                 {
-                    tabs[i].render();
+                    for (int i = 0; i < 1; i++)
+                    {
+                        tabs[i].render();
+                    }
+                    ImGui::EndTabBar();
                 }
-                ImGui::EndTabBar();
+                if (ImGui::Button("Change2"))
+                {
+                    WindowState::activateFileMenuOpenFile();
+                }
+                ImGui::End();
             }
-            ImGui::End();
+        }
+        else if (WindowState::getWindowState() == FILE_MENU)
+        {
+            if (ImGui::Begin("HELP", NULL, next_window_flags))
+            {
+                if (ImGui::Button("Change"))
+                {
+                    WindowState::activateUserWindow();
+                }
+                ImGui::End();
+            }
         }
 
 #ifdef ROC_DEBUG
